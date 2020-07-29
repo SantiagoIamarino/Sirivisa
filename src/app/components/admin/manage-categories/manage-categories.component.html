@@ -1,0 +1,42 @@
+<div class="container">    
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+        <h1 class="display-4">Manage categories</h1>
+        <p class="lead">This is a list where you can see and manage your posts.</p>
+        </div>
+    </div>
+
+    <div class="posts table-responsive">
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Date</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody *ngIf='categories.length > 0'>
+              <tr *ngFor='let category of categories'>
+                <th scope="row">{{ category.name }}</th>
+                <td>{{ category.date | date }}</td>
+                <td>
+                    <button (click)='editCategory(category._id)'
+                      class='btn btn-outline-success'>
+                        <i class="fa fa-edit"></i>
+                        Edit
+                    </button>
+                </td>
+                <td>
+                    <button (click)='deleteCategory(category._id)'
+                      class='btn btn-outline-danger'>
+                        <i class="fa fa-trash"></i>
+                        Delete
+                    </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+</div>

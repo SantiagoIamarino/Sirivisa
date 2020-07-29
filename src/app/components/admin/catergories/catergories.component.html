@@ -1,0 +1,107 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Categories</h1>
+        <p class="lead">Upload new categories that will show in the home page.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="form">
+        <form>
+            <div class="form-group">
+                <div class="ui-inputgroup w-100">
+                    <span class="ui-inputgroup-addon"><i class="pi pi-folder" style="line-height: 1.25;"></i></span>
+                    <input [(ngModel)]="category.name" name='categoryName'
+                     type="text" class='w-100 pl-2' pInputText placeholder="Category name">         
+                </div>
+            </div>
+            <div class="file-upload">
+                <h4 class='mt-4 mb-4'>Set category background 
+                    <span *ngIf='editMode'>(leave blank if you dont want to change it)</span>
+                </h4>
+                <div class="file-uploader">
+                    <p-fileUpload #fileUploader name="demo[]" customUpload="true" (uploadHandler)="myUploader($event)"
+                            multiple="multiple">
+                        <ng-template let-file pTemplate="file" *ngIf='uploadedFiles.length === 0'>
+                            <div class="ui-fileupload-row" *ngIf='uploadedFiles.length === 0'>
+                                <div>
+                                    <img *ngIf='file.objectURL'
+                                        [src]="file.objectURL.changingThisBreaksApplicationSecurity | tempImg" width="50">
+                                </div>
+                                <div>{{ file.name }}</div>
+                                <div>
+                                    <button (click)="removeFile(file, fileUploader)"
+                                        icon="pi pi-times" type="button" ng-reflect-icon="pi pi-times" 
+                                        class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only">
+                                        <span aria-hidden="true" class="ui-button-icon-left ui-clickable pi pi-times"></span>
+                                        <span aria-hidden="true" class="ui-button-text ui-clickable">ui-btn</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="content">
+                            <p-progressBar *ngIf='filesService.uploading'
+                                mode="indeterminate" [style]="{'height': '6px'}">
+                            </p-progressBar>
+                            <ol *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">File uploaded - {{file.bytes}} bytes</li>
+                            </ol>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+            </div>
+
+            <div class="file-upload">
+                <h4 class='mt-4 mb-4'>Set mobile category background 
+                    <span *ngIf='editMode'>(leave blank if you dont want to change it)</span>
+                </h4>
+                <div class="file-uploader">
+                    <p-fileUpload #mobileFileUploader name="demo[]" customUpload="true" (uploadHandler)="myUploader($event, true)"
+                            multiple="multiple">
+                        <ng-template let-file pTemplate="file" *ngIf='mobileUploadedFiles.length === 0'>
+                            <div class="ui-fileupload-row" *ngIf='mobileUploadedFiles.length === 0'>
+                                <div>
+                                    <img *ngIf='file.objectURL'
+                                        [src]="file.objectURL.changingThisBreaksApplicationSecurity | tempImg" width="50">
+                                </div>
+                                <div>{{ file.name }}</div>
+                                <div>
+                                    <button (click)="removeFile(file, mobileFileUploader)"
+                                        icon="pi pi-times" type="button" ng-reflect-icon="pi pi-times" 
+                                        class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only">
+                                        <span aria-hidden="true" class="ui-button-icon-left ui-clickable pi pi-times"></span>
+                                        <span aria-hidden="true" class="ui-button-text ui-clickable">ui-btn</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="content">
+                            <p-progressBar *ngIf='filesService.uploadingMobile'
+                                mode="indeterminate" [style]="{'height': '6px'}">
+                            </p-progressBar>
+                            <ol *ngIf="mobileUploadedFiles.length">
+                                <li *ngFor="let file of mobileUploadedFiles">File uploaded - {{file.bytes}} bytes</li>
+                            </ol>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+            </div>
+
+            <div class="category-content">
+                <h4 class='mt-4 mb-4'>Set category description</h4>
+                <div class="form-group">
+                    <textarea [(ngModel)]="category.description" name='categoryDescription'
+                        cols="30" rows="10" class="form-control" placeholder="Category description"></textarea>
+                </div>
+            </div>
+
+            <div class="upload-btn d-flex justify-content-center mb-4 mt-4">
+                <button (click)='uploadCategory()'
+                    class='btn btn-outline-success w-50'>
+                    <i class="fa fa-upload"></i>
+                    Upload category
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

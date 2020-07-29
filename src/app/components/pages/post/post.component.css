@@ -1,0 +1,65 @@
+.content{
+    font-family: 'Roboto', sans-serif;
+}
+
+.header {
+    width: 100%;
+    position: fixed;
+    top:0;
+    background: tan;
+    color: white;
+    padding: 0vw 2vw;
+    padding-left: 0;
+}
+
+.header .back{
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    z-index: 999;
+}
+
+.header .back .back-container {
+    display: flex;
+    align-items: center;
+}
+
+.header .back:hover i,
+.header .back:hover .text{
+    transition: .3s all ease;
+    background: rgb(214, 194, 167);
+}
+
+.header .back i{
+    font-size: 22px;
+    padding: 2vh 1vw;
+    padding-left: 2vw;
+}
+
+.header .back .text p{
+    font-size: 120%;
+    margin-left: 10px;
+    padding-right: 2vw;
+}
+
+.header .post-title{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+}
+
+.header .post-title h2{
+    font-size: 22px;
+}
+
+.container{
+    padding: 1vw 3vw;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 10vh;
+    margin-bottom: 2vh;
+}

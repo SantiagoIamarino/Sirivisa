@@ -1,0 +1,112 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Posts</h1>
+        <p class="lead">Upload new posts that will show in the home page.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="form">
+        <form>
+            <div class="form-group">
+                <div class="ui-inputgroup w-100">
+                    <span class="ui-inputgroup-addon"><i class="pi pi-folder" style="line-height: 1.25;"></i></span>
+                    <input [(ngModel)]="post.title" name='postTitle'
+                        type="text" class='w-100 pl-2' pInputText placeholder="Post title">         
+                </div>
+            </div>
+            <div class="file-upload">
+                <h4 class='mt-4 mb-4'>Set post images
+                    <span *ngIf='editMode'>(Leave blank if you dont want to change it)</span>
+                </h4>
+                <div class="file-uploader">
+                    <p-fileUpload #fileUploader name="demo[]" customUpload="true" (uploadHandler)="myUploader($event)"
+                            multiple="multiple">
+                        <ng-template let-file pTemplate="file" *ngIf='uploadedFiles.length === 0'>
+                            <div class="ui-fileupload-row" *ngIf='uploadedFiles.length === 0'>
+                                <div>
+                                    <img *ngIf='file.objectURL'
+                                        [src]="file.objectURL.changingThisBreaksApplicationSecurity | tempImg" width="50">
+                                </div>
+                                <div>{{ file.name }}</div>
+                                <div>
+                                    <button (click)="removeFile(file, fileUploader)"
+                                        icon="pi pi-times" type="button" ng-reflect-icon="pi pi-times" 
+                                        class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only">
+                                        <span aria-hidden="true" class="ui-button-icon-left ui-clickable pi pi-times"></span>
+                                        <span aria-hidden="true" class="ui-button-text ui-clickable">ui-btn</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="content">
+                            <p-progressBar *ngIf='filesService.uploading'
+                                mode="indeterminate" [style]="{'height': '6px'}">
+                            </p-progressBar>
+                            <ol *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">File uploaded - {{file.bytes}} bytes</li>
+                            </ol>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+            </div>
+
+            <div class="mobile-file-upload">
+                <h4 class='mt-4 mb-4'>Set mobile post image
+                    <span *ngIf='editMode'>(Leave blank if you dont want to change it)</span>
+                </h4>
+                <div class="file-uploader">
+                    <p-fileUpload #fileUploader name="demo[]" customUpload="true" (uploadHandler)="myUploaderMobile($event)">
+                        <ng-template let-file pTemplate="file" *ngIf='uploadedFilesMobile.length === 0'>
+                            <div class="ui-fileupload-row" *ngIf='uploadedFilesMobile.length === 0'>
+                                <div>
+                                    <img [src]="file.objectURL.changingThisBreaksApplicationSecurity | tempImg" width="50">
+                                </div>
+                                <div>{{ file.name }}</div>
+                                <div>
+                                    <button (click)="removeFile(file, fileUploader)"
+                                        icon="pi pi-times" type="button" ng-reflect-icon="pi pi-times" 
+                                        class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only">
+                                        <span aria-hidden="true" class="ui-button-icon-left ui-clickable pi pi-times"></span>
+                                        <span aria-hidden="true" class="ui-button-text ui-clickable">ui-btn</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="content">
+                            <p-progressBar *ngIf='filesService.uploadingMobile'
+                                mode="indeterminate" [style]="{'height': '6px'}">
+                            </p-progressBar>
+                            <ol *ngIf="uploadedFilesMobile.length">
+                                <li *ngFor="let file of uploadedFilesMobile">File uploaded - {{file.bytes}} bytes</li>
+                            </ol>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+            </div>
+
+            <div class="form-group mt-4">
+                <h4 class='mb-4'>Set post category</h4>
+                <select [(ngModel)]="post.category" name="postCategory" class="form-control">
+                    <option value="none">Choose category</option>
+                    <option *ngFor='let category of categories'
+                        [value]="category._id">{{ category.name }}</option>
+                </select>
+            </div>
+
+            <div class="category-content mb-4">
+                <h4 class='mt-4 mb-4'>Write the post</h4>
+                <p-editor [(ngModel)]="post.text" name='postText'
+                     [style]="{'height':'320px'}" ></p-editor>
+            </div>
+
+            <div (click)='uploadPost()' 
+                class="upload-btn d-flex justify-content-center mb-4 mt-4">
+                <button class='btn btn-outline-success w-50'>
+                    <i class="fa fa-upload"></i>
+                    Upload post
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

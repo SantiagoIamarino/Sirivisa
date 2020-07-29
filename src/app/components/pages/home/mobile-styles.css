@@ -1,0 +1,108 @@
+@media screen and (max-width: 1000px) {
+    .content{
+        display: none;
+    }
+
+    .mobile-content{
+        display: block;
+        position: relative;
+    }
+
+    .mobile-content .img-cover{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        z-index: -1;
+    }
+
+    .mobile-content .img-cover img{
+        width: auto;
+        height: 100%;
+    }
+
+    .category{
+        position: relative;
+    }
+
+    .category-content{
+        max-width: 90%;
+        margin: 0 auto;
+        color: #fff;
+        font-family: 'Roboto', sans-serif;
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .category-content .category-title{
+        padding-top: 25vh;
+    }
+
+    .category-content .category-title h2{
+        font-size: 4vh;
+        font-weight: normal;
+    }
+
+    .category-content .category-date{
+        margin-top: 6vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .category-content .category-date i{
+        font-size: 22px;
+    }
+
+    .category-content .category-date p{
+        padding-left: 1vw;
+    }
+
+    .category-content .category-description{
+        margin-top: 4vh;
+        overflow: hidden;
+        max-height: 22vh ;
+    }
+
+    .category-content .post-images{
+        width: 100%;
+        position: absolute;
+        bottom: 2vh;
+        display: -moz-box;
+        display: -webkit-box;
+        overflow: scroll;
+        /* margin-top: 12vh; */
+    }
+
+    .category-content .post-images::-webkit-scrollbar {
+        display: none;
+      }
+      
+    /* Hide scrollbar for IE and Edge */
+    .category-content .post-images {
+        -ms-overflow-style: none;
+    }
+
+    .category-content .post-images .post{
+        width: 33%;
+        margin-right: 5vw;
+    }
+
+    .category-content .post-images .post .img{
+        width: 100%;
+    }
+
+    .category-content .post-images .img img{
+        width: 100%;
+        height: auto;
+    }
+
+    #js_messenger {
+        visibility: hidden; 
+        width:0; 
+        height:0; 
+        position:fixed;
+    }
+}

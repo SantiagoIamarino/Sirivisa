@@ -1,0 +1,61 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">About me</h1>
+        <p class="lead">Manage about me content and image.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="form">
+        <form>
+            <div class="file-upload">
+                <h4 class='mt-4 mb-4'>Set about me image
+                    <span >(Leave blank if you dont want to change it)</span>
+                </h4>
+                <div class="file-uploader">
+                    <p-fileUpload #fileUploader name="demo[]" customUpload="true" (uploadHandler)="myUploader($event)"
+                            multiple="multiple">
+                        <ng-template let-file pTemplate="file" *ngIf='uploadedFiles.length === 0'>
+                            <div class="ui-fileupload-row" *ngIf='uploadedFiles.length === 0'>
+                                <div>
+                                    <img [src]="file.objectURL.changingThisBreaksApplicationSecurity | tempImg" width="50">
+                                </div>
+                                <div>{{ file.name }}</div>
+                                <div>
+                                    <button (click)="removeFile(file, fileUploader)"
+                                        icon="pi pi-times" type="button" ng-reflect-icon="pi pi-times" 
+                                        class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only">
+                                        <span aria-hidden="true" class="ui-button-icon-left ui-clickable pi pi-times"></span>
+                                        <span aria-hidden="true" class="ui-button-text ui-clickable">ui-btn</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="content">
+                            <p-progressBar *ngIf='filesService.uploading'
+                                mode="indeterminate" [style]="{'height': '6px'}">
+                            </p-progressBar>
+                            <ol *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">File uploaded - {{file.bytes}} bytes</li>
+                            </ol>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+            </div>
+
+            <div class="category-content mb-4">
+                <h4 class='mt-4 mb-4'>Content</h4>
+                <p-editor [(ngModel)]="about.text" name='postText'
+                     [style]="{'height':'320px'}" ></p-editor>
+            </div>
+
+            <div (click)='editAbout()' 
+                class="upload-btn d-flex justify-content-center mb-4 mt-4">
+                <button class='btn btn-outline-success w-50'>
+                    <i class="fa fa-upload"></i>
+                    Update about me
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

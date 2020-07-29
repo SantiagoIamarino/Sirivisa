@@ -1,0 +1,135 @@
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 8%;
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container .text{
+    margin-left: 7%;
+    margin-top: 3%;
+    max-width: 500px;
+    position: relative;
+}
+
+.container .text h2{
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 70px;
+    text-transform: capitalize;
+    position: relative;
+    line-height: 44px;
+    color: #222222;
+}
+
+.container .text h2:before{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -35px;
+    width: 10px;
+    height: 10px;
+    background: tan;
+    border-radius: 7px;
+}
+
+.container .text h2::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -31px;
+    width: 100px;
+    height: 2px;
+    background: tan;
+}
+
+.container .text .about{
+    margin-top: 20px;
+    color: #777777;
+    width: 100%;
+    line-height: 1.625em;
+}
+
+.container .text .buttons{
+    position: absolute;
+    width: 100%;
+    bottom: 20%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.container .text .buttons button{
+    width: 46%;
+    padding: 0 52px;
+    background: tan;
+    overflow: hidden;
+    border-radius: 40px;
+    font-size: 15px;
+    font-weight: 600;
+    display: inline-block;
+    border: 1px solid tan;
+    vertical-align: middle;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    text-align: center;
+    padding: 13px 0;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: .8px;
+    font-size: 15px;
+}
+
+.container .text .buttons button:hover{
+    transition: .3s all ease;
+    background: none;
+    color: tan
+}
+
+.container .text .buttons button.first{
+    background: none;
+    border-color: tan;
+    color: tan;
+}
+
+.container .text .buttons button.first:hover{
+    background: tan;
+    color: white;
+}
+
+@media screen and (max-width:1100px) {
+    .container .text{
+        margin-left: 3%;
+    }
+}
+
+@media screen and (max-width:1000px) {
+    .container{
+        flex-direction: column;
+        padding: 0 5%;
+    }
+
+    .container .img,
+    .container .text{
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .container .img img{
+        margin-top: 20px;
+        max-height: 50vh;
+    }
+
+    .container .text .buttons{
+        margin-top: 30px;
+        position: static;
+        margin-bottom: 30px;
+    }
+
+    .container .img{
+        display: flex;
+        justify-content: center;
+    }
+}

@@ -1,0 +1,31 @@
+.loading-content{
+    position: fixed;
+    top: 0px;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+@keyframes ui-progress-spinner-color {
+    100%,
+    0% {
+        stroke: #6B6054;
+    }
+    40% {
+        stroke: rgb(153, 189, 152);
+    }
+    66% {
+        stroke: rgb(83, 74, 65);
+    }
+    80%,
+    90% {
+        stroke: rgb(107, 168, 105);
+    }
+}

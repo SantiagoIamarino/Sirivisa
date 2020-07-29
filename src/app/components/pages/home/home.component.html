@@ -1,0 +1,151 @@
+<app-navbar></app-navbar>
+<div class="content">
+    <div class="navigation animated fadeInLeft">
+        <div *ngFor='let navigation of categories; let i = index' 
+            class="navigation-option">
+            <hr width="1">
+            <div class="navigation-button" [ngClass]="{'active': i === 0}"
+                (click)="leftNavigation(i)" [attr.id]="'option_' + (i + 1)">
+                <span class='category-number'>{{ i + 1 }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="principal-content">
+        <div *ngFor='let category of categories; let i = index'
+            class="category" [attr.id]="'category_' + (i + 1)">
+            <div class="img-cover">
+                <video *ngIf="category.background.resource_type == 'video'"
+                    (canplay)='onImageCoverLoad(i)' oncanplay="this.play()" 
+                    onloadedmetadata="this.muted = true"
+                    autoplay loop [src]="category.background.secure_url">
+                </video>
+                <img *ngIf="category.background.resource_type == 'image'"
+                    (load)='onImageCoverLoad(i)'
+                    [src]="category.background.secure_url" alt="">
+            </div>
+            <div class="category-content">
+                <div class="category-info">
+                    <div *ngIf='i !== 0'
+                        class="last-category" (click)='navigation(i - 1)'>
+                        <h2>{{ categories[i - 1].name }}</h2>
+                    </div>
+                    <div class="this-category">
+                        <div class="category-name">
+                            <h2>{{ category.name }}</h2>
+                        </div>
+                        <div class="category-description">
+                            <p>{{ category.description }}</p>
+                        </div>
+                        <div class="explore-btn">
+                            <button (click)='postsNavigation(i, "next")'>
+                                Explore
+                                <img src="assets/img/next.svg" alt="">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="posts">
+                    <div class="posts-container">
+                        <div *ngFor='let post of posts; let postIndex = index'
+                            class="post active">
+                            <div class="post-top">
+                                <div class="post-title">
+                                    <p>{{ post.title }}</p>
+                                </div>
+                                <div class="post-navigation" [attr.id]="'category_' + (i + 1) + '_post_' + (postIndex + 1) ">
+                                    <div *ngFor='let navigation of post.images; let imageIndex = index'
+                                        class="navigation-button" [ngClass]="{'active': imageIndex === 0 }"
+                                        (click)='changingImage((i + 1), (postIndex + 1), imageIndex, post.images)'>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="post-image loading">
+                                <div [routerLink]="['/post', post._id]"
+                                    class="go-to-post">
+                                    <p>Go to post</p>
+                                    <img src="assets/img/next.svg" alt="">
+                                </div>
+                                <div class="img">
+                                    <video *ngIf="post.images[0].resource_type == 'video'"
+                                        [attr.id]="'category_' + (i + 1) + '_post_' + (postIndex + 1) + '_image'"
+                                        (canplay)='onImageLoad($event)' oncanplay="this.play()" 
+                                        onloadedmetadata="this.muted = true"
+                                        autoplay loop [src]="post.images[0].secure_url">
+                                    </video>
+                                    <img *ngIf="post.images[0].resource_type == 'image'"
+                                        [attr.id]="'category_' + (i + 1) + '_post_' + (postIndex + 1) + '_image'"
+                                        (load)="onImageLoad($event)"
+                                        [src]="post.images[0].secure_url" alt="">
+                                    <div class="loading-image animated fadeIn faster">
+                                        <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="transparent"></p-progressSpinner>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="posts-navigation">
+                        <div class="left-back" (click)='postsNavigation(i, "prev")'>
+                            <img src="assets/img/next.svg" alt="">
+                        </div>
+                        <div class="right-next" (click)='postsNavigation(i, "next")'>
+                            <img src="assets/img/next.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="go-next-category" *ngIf='(i + 1) !== categories.length'>
+                <button class='animated infinite bounce slow' (click)='navigation(i + 1)'>
+                    <img src="assets/img/down-arrow.svg" alt="">
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mobile-content">
+    <div [attr.id]='"mobile_category_" + (i + 1)' class="category" 
+        *ngFor='let category of categories; let i = index'>
+        <div class="img-cover" *ngIf='category.mobileBackground'>
+            <video *ngIf="category.mobileBackground.resource_type == 'video'"
+                    (canplay)='onImageCoverLoad(i)' oncanplay="this.play()" 
+                    onloadedmetadata="this.muted = true"
+                    autoplay loop [src]="category.mobileBackground.secure_url">
+                </video>
+                <img *ngIf="category.mobileBackground.resource_type == 'image'"
+                    (load)='onImageCoverLoad(i)'
+                    [src]="category.mobileBackground.secure_url" alt="">
+        </div>
+        <div class="category-content">
+            <div class="category-title">
+                <h2>{{ category.name }}</h2> 
+            </div>
+
+            <div class="category-date">
+                <i class="far fa-clock"></i>
+                <p>{{ category.date | date }}</p>
+            </div>
+
+            <div class="category-description">
+                <p>{{ category.description }}</p>
+            </div>
+
+            <div class="post-images">
+                <div class="post" *ngFor='let post of posts'>
+                    <div class="img">
+                        <video *ngIf="post.mobileImg && post.mobileImg.resource_type == 'video'"
+                            (canplay)='onImageLoad($event)' oncanplay="this.play()" 
+                            onloadedmetadata="this.muted = true"
+                            autoplay loop [src]="post.mobileImg.secure_url">
+                        </video>
+                        <img *ngIf="post.mobileImg && post.mobileImg.resource_type == 'image'"
+                            (load)="onImageLoad($event)"
+                            [src]="post.mobileImg.secure_url" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input #messenge id='js_messenger_value' type="hidden">
+    <button id='js_messenger' (click)='mobileCategoryChanged(messenge)'></button>
+</div>

@@ -1,0 +1,17 @@
+<app-navbar [transparent]='false'></app-navbar>
+
+<div class="container" *ngIf='content'>
+    <div class="img animated fadeInLeft">
+        <img (load)='onImageLoad()'
+            [src]="content.img.secure_url" alt="">
+    </div>
+    <div class="text animated fadeInRight">
+        <h2>About Myself</h2>
+        <div class="about" [innerHTML]='content.text'>
+        </div>
+        <div class="buttons">
+            <button class='first' routerLink='/home'>My posts</button>
+            <button routerLink='/contact'>Contact me</button>
+        </div>
+    </div>
+</div>

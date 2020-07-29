@@ -1,0 +1,20 @@
+<div class="header">
+    <div class="content">
+        <div class="back">
+            <div class="back-container animated fadeInLeft faster" routerLink='/home'>
+                <i class="fa fa-chevron-left"></i>
+                <div class="text">
+                    <p>Sirivisa</p>
+                </div>
+            </div>
+        </div>
+        <div class="post-title animated fadeInDown" *ngIf='post'>
+            <h2>{{ post.title }}</h2>
+        </div>
+    </div>
+</div>
+
+<div class="container animated fadeIn" *ngIf='post'>
+    <div class="content" [innerHTML]='post.text'>
+    </div>
+</div>
